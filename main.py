@@ -20,11 +20,27 @@ df_info = df.info()
 df_filtro_colunas = df['categoria_produto'].unique()
 produtos = df['categoria_produto'].value_counts().reset_index()
 
+# Manipulando dados qualitativos ordinais
+sorted(df['avaliacao'].unique())
+
+df['avaliacao_indicador'] = pd.Categorical(
+    df['avaliacao'],
+    categories=[1, 2, 3, 4, 5],
+    ordered=True
+)
+
+avaliacao_labels = {1: 'Péssimo', 2: 'Ruim', 3: 'Regular', 4: 'Bom', 5: 'Ótimo'}
+df['avaliacao_indicador'] = df['avaliacao_indicador'].map(avaliacao_labels)
+
+# Remoção dos valores duplicados de Avaliação e Avaliação Indicador
+df_unico = df[['avaliacao', 'avaliacao_indicador']].drop_duplicates()
+print(df_unico)
+
 # Cria um gráfico na horizontal
 plt.barh(produtos['categoria_produto'], produtos['count'])
-plt.show()
+# plt.show()
 
-print(produtos)
+# print(produtos)
 # print(df_shape)
 # print(df_info)
 # print(df_head)
