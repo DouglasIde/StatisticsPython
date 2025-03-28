@@ -36,6 +36,17 @@ df['avaliacao_indicador'] = df['avaliacao_indicador'].map(avaliacao_labels)
 df_unico = df[['avaliacao', 'avaliacao_indicador']].drop_duplicates()
 print(df_unico)
 
+# Verificar o valor MIN e o valor MAX vendidos
+df['quantidade'].unique()
+print(f"Vendemos de {min(df['quantidade'])} até {max(df['quantidade'])} unidades de produto por registros")
+
+# Verificar o total de compra Min até Max
+df['total_compra'].unique()
+df.sort_values(by='total_compra')
+print(f"Vendemos de R${min(df['total_compra']):,.2f} até R${max(df['total_compra']):,.2f} unidades de produto por registros")
+
+
+
 # Cria um gráfico na horizontal
 plt.barh(produtos['categoria_produto'], produtos['count'])
 # plt.show()
